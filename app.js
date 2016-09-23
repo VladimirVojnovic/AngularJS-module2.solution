@@ -6,9 +6,9 @@ angular.module('ShoppingListCheckOff', [])
 .controller('AlreadyBoughtController', AlreadyBoughtController)
 .service('ShoppingListCheckOffService', ShoppingListCheckOffService)
 
-ToBuyController.$inject = ['ShoppingListCheckOffService',$scope];
+ToBuyController.$inject = ['$scope', 'ShoppingListCheckOffService'];
 
-function ToBuyController(ShoppingListCheckOffService, $scope) {
+var ToBuyController = function(ShoppingListCheckOffService, $scope) {
   $scope.toBuyList = ShoppingListCheckOffService.toBuyList;
   $scope.BuyItem = function (item) {
     var itemIndex = $scope.itemsToBuy.indexOf(item,0 );
@@ -17,18 +17,18 @@ function ToBuyController(ShoppingListCheckOffService, $scope) {
       ShoppingListCheckOffService.boughtList.push(item);
     }
   };
-} //ToBuyController function
+}; //ToBuyController function
 
-AlreadyBoughtController.$inject = ['ShoppingListCheckOffService',$scope];
-function AlreadyBoughtController(ShoppingListCheckOffService, $scope) {
+AlreadyBoughtController.$inject = ['$scope', 'ShoppingListCheckOffService'];
+var AlreadyBoughtController = function(ShoppingListCheckOffService, $scope) {
   $scope.boughtList = ShoppingListCheckOffService.boughtList;
   $scope.isEmptyBuyList = function () {
 			return ShoppingListCheckOffService.toBuyList.length ? false : true;
 	};
 
-} //AlreadyBoughtController function
+}; //AlreadyBoughtController function
 
-function ShoppingListCheckOffService(){
+var ShoppingListCheckOffService = function () {
 
 // Initial list of items to buy
   var toBuy = [{name:'cookies', quantity:'10 bags'},
@@ -49,9 +49,10 @@ function ShoppingListCheckOffService(){
   return{
     toBuyList: toBuy,
     boughtList: bought,
-    moveToBought: function (item){
+    moveToBought: function (item) {
       return;
-    }
+      }
+
   };
 
 } //ShoppingListCheckOffService function
