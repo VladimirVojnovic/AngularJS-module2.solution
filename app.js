@@ -2,7 +2,11 @@
 'use strict';
 
 var app = angular.module('ShoppingListCheckOff', []);
+app.controller('ToBuyShoppingController', ToBuyShoppingController);
+app.controller('AlreadyBoughtShoppingController', AlreadyBoughtShoppingController);
+app.service('ShoppingListCheckOffService', ShoppingListCheckOffService);
 
+ToBuyShoppingController.$inject = ['$scope', 'ShoppingListCheckOffService'];
 var ToBuyShoppingController = function($scope, ShoppingListCheckOffService) {
   $scope.toBuyList = ShoppingListCheckOffService.toBuyList;
   $scope.buyItem = function (item) {
@@ -14,6 +18,7 @@ var ToBuyShoppingController = function($scope, ShoppingListCheckOffService) {
   };
 }; //ToBuyController function
 
+AlreadyBoughtShoppingController.$inject = ['$scope', 'ShoppingListCheckOffService'];
 var AlreadyBoughtShoppingController = function($scope, ShoppingListCheckOffService) {
   $scope.boughtList = ShoppingListCheckOffService.boughtList;
   $scope.isEmptytoBuyList = function () {
@@ -48,11 +53,6 @@ var ShoppingListCheckOffService = function () {
     }
   };
 }; //ShoppingListCheckOffService function
-ToBuyShoppingController.$inject = ['$scope', 'ShoppingListCheckOffService'];
-AlreadyBoughtShoppingController.$inject = ['$scope', 'ShoppingListCheckOffService'];
-app.controller('ToBuyShoppingController', ToBuyShoppingController);
-app.controller('AlreadyBoughtShoppingController', AlreadyBoughtShoppingController);
-app.service('ShoppingListCheckOffService', ShoppingListCheckOffService);
 
 
 }());
