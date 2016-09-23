@@ -1,17 +1,12 @@
 (function (){
 'use strict';
 
-angular.module('ShoppingListCheckOff', [])
-.controller('ToBuyController', ToBuyController)
-.controller('AlreadyBoughtController', AlreadyBoughtController)
-.service('ShoppingListCheckOffService', ShoppingListCheckOffService)
+var app = angular.module('ShoppingListCheckOff', []);
 
-ToBuyController.$inject = ['$scope', 'ShoppingListCheckOffService'];
-
-var ToBuyController = function(ShoppingListCheckOffService, $scope) {
+var ToBuyController = function($scope, ShoppingListCheckOffService) {
   $scope.toBuyList = ShoppingListCheckOffService.toBuyList;
-  $scope.BuyItem = function (item) {
-    var itemIndex = $scope.itemsToBuy.indexOf(item,0 );
+  $scope.buyItem = function (item) {
+    var itemIndex = $scope.toBuyList.indexOf(item,0 );
     if (itemIndex !== -1) {
       $scope.toBuyList.splice(itemIndex,1);
       ShoppingListCheckOffService.boughtList.push(item);
@@ -19,10 +14,9 @@ var ToBuyController = function(ShoppingListCheckOffService, $scope) {
   };
 }; //ToBuyController function
 
-AlreadyBoughtController.$inject = ['$scope', 'ShoppingListCheckOffService'];
-var AlreadyBoughtController = function(ShoppingListCheckOffService, $scope) {
+var AlreadyBoughtController = function($scope, ShoppingListCheckOffService) {
   $scope.boughtList = ShoppingListCheckOffService.boughtList;
-  $scope.isEmptyBuyList = function () {
+  $scope.isEmptytoBuyList = function () {
 			return ShoppingListCheckOffService.toBuyList.length ? false : true;
 	};
 
@@ -51,12 +45,14 @@ var ShoppingListCheckOffService = function () {
     boughtList: bought,
     moveToBought: function (item) {
       return;
-      }
-
+    }
   };
+}; //ShoppingListCheckOffService function
+ToBuyController.$inject = ['$scope', 'ShoppingListCheckOffService'];
+AlreadyBoughtController.$inject = ['$scope', 'ShoppingListCheckOffService'];
+app.controller('ToBuyController', ToBuyController);
+app.controller('AlreadyBoughtController', AlreadyBoughtController);
+app.service('ShoppingListCheckOffService', ShoppingListCheckOffService);
 
-} //ShoppingListCheckOffService function
 
-}
-
-)();
+}());
